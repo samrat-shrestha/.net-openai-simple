@@ -37,10 +37,10 @@ namespace NET_OpenAI.Controllers
                     _context.ChatMessages.Add(new ChatMessage { Role = "system", Content = "You are a helpful assistant." });
                 }
                 _context.ChatMessages.Add(new ChatMessage { Role = "user", Content = userMessageRequest.Message });
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 string chatbotResponse = await CallOpenAIChatbot();
                 _context.ChatMessages.Add(new ChatMessage { Role = "assistant", Content = chatbotResponse });
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return Ok(new ChatbotResponse { Message = chatbotResponse });
             }
